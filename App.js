@@ -1,17 +1,9 @@
 import React from 'react'
-import { StatusBar, View } from 'react-native'
+import { View } from 'react-native'
 import { TabNavigator } from 'react-navigation'
-import { Constants } from 'expo'
 import Decks from './components/Decks'
 import NewDeck from './components/NewDeck'
-
-function FlashCardsStatusBar ({ backgroundColor, ...props }) {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
-}
+import FlashCardsStatusBar from './components/FlashCardsStatusBar/'
 
 const Tabs = TabNavigator({
   Decks: {
