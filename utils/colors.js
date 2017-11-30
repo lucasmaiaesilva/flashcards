@@ -1,4 +1,6 @@
 export const black = '#333'
 export const green = '#c2c57f'
 export const red = '#a13939'
+export const blue = '#0d8abc'
 export const darkGray = '#909090'
+export const yellow = '#fcc88a'

@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { listDecks } from './../../actions/deck'
-import { black, darkGray } from './../../utils/colors'
-import { container } from './../../utils/styles'
-
-const data = [
-  { name: 'React', cards: 3 },
-  { name: 'Redux', cards: 5 },
-  { name: 'Javascript', cards: 9 }
-]
+import { container, deckTitle, deckSubtitle } from './../../utils/styles'
+import { darkGray } from './../../utils/colors'
 
 class Decks extends Component {
   componentDidMount () {
@@ -18,7 +12,7 @@ class Decks extends Component {
     dispatch(listDecks())
   }
   render () {
-    const { decks } = this.props
+    const { decks, navigation = {} } = this.props
     if (decks === undefined) {
       return (
         <View style={styles.container}>
@@ -29,9 +23,20 @@ class Decks extends Component {
     return (
       <View>
         {decks.map(item => (
-          <TouchableOpacity key={item.name} style={styles.item}>
-            <Text style={styles.itemTitle}>{item.name}</Text>
-            <Text style={styles.itemSubtitle}>{item.cards} cards</Text>
+          <TouchableOpacity
+            key={item.name}
+            style={styles.item}
+            onPress={() => navigation.navigate(
+              'Deck',
+              { card: item }
+            )}
+          >
+            <Text style={[styles.deckTitle, { fontSize: 22 }]}>
+              {item.name}
+            </Text>
+            <Text style={[styles.deckSubtitle, { fontSize: 13 }]}>
+              {item.cards} {item.cards === 1 ? 'card' : 'cards'}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -40,13 +45,7 @@ class Decks extends Component {
 }
 
 // Decks.propTypes = {
-//   decks: PropTypes.oneOfType([
-//     PropTypes.shape({
-//       name: PropTypes.string,
-//       cards: PropTypes.number
-//     }),
-//     PropTypes.bool
-//   ])
+//   decks: PropTypes.array
 // }
 
 // Decks.defaultProps = {
@@ -55,20 +54,14 @@ class Decks extends Component {
 
 const styles = StyleSheet.create({
   container,
+  deckTitle,
+  deckSubtitle,
   item: {
     height: 100,
     borderBottomColor: darkGray,
     borderBottomWidth: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  itemTitle: {
-    fontSize: 22,
-    color: black
-  },
-  itemSubtitle: {
-    fontSize: 13,
-    color: darkGray
   }
 })
 
