@@ -24,5 +24,14 @@ const initialState = {
 }
 
 export default function reducer (state = initialState, action) {
-  return state
+  switch (action.type) {
+  case 'LIST_DECKS':
+    return {
+      listDecks: Object.keys(state).map(item => ({
+        name: item, cards: initialState[item].questions.length
+      }))
+    }
+  default:
+    return state
+  }
 }
