@@ -3,32 +3,44 @@ import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpaci
 import { container, deckTitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
-class NewDeck extends Component {
+class AddCard extends Component {
   constructor () {
     super()
     this.state = {
-      titleDeck: ''
+      question: '',
+      answer: ''
     }
   }
 
   render () {
-    const { titleDeck } = this.state
+    const { navigation = {} } = this.props
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { card = {} } = params
+    const { question, answer } = this.state
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
-          <Text style={[styles.deckTitle, { fontSize: 28, marginBottom: 28, textAlign: 'center' }]}>
-            What is the title of your new Deck?
+          <Text style={[styles.deckTitle, { fontSize: 18, marginBottom: 30, textAlign: 'center' }]}>
+            Type your question for the new {card} Card
           </Text>
 
           <TextInput
             style={styles.input}
-            value={titleDeck}
+            value={question}
             placeholder='question for the card'
-            onChange={text => this.setState({ titleDeck: text })}
+            onChange={text => this.setState({ question: text })}
+          />
+
+          <TextInput
+            style={styles.input}
+            value={answer}
+            placeholder='Answer for the question above'
+            onChange={text => this.setState({ answer: text })}
           />
 
           <TouchableOpacity
-            style={[styles.button, { backgroundColor: blue, alignSelf: 'center' }]}
+            style={[styles.button, { backgroundColor: blue, alignSelf: 'flex-end' }]}
             onPress={() => alert('submited value')}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
@@ -48,12 +60,12 @@ const styles = StyleSheet.create({
     padding: 8,
     borderWidth: 1,
     marginTop: 10,
-    marginBottom: 5
+    marginBottom: 10
   },
   button: {
     paddingTop: 16,
     paddingBottom: 16,
-    marginTop: 10,
+    marginTop: 45,
     borderRadius: 3,
     borderWidth: 0,
     width: 200,
@@ -61,4 +73,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default AddCard

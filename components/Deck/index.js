@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
@@ -17,12 +17,14 @@ const Deck = (props) => {
         {card.cards} {card.cards === 1 ? 'card' : 'cards'}
       </Text>
       <View style={{ marginTop: 80, width: 300 }}>
-        <Text style={[styles.button, { borderColor: blue, color: blue }]}>
-          Add a card
-        </Text>
-        <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
-          start a quiz
-        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: card.name })}>
+          <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+          <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
+            start a quiz
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
