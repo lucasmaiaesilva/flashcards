@@ -1,7 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Decks from './components/Decks'
@@ -35,7 +36,10 @@ const DecksNavigator = StackNavigator({
   }
 })
 
-const store = createStore(reducer)
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+)
 
 export default function App () {
   return (

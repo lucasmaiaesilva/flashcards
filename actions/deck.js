@@ -4,3 +4,9 @@ export function listDecks () {
   }
 }
 
+export function newDeck (name) {
+  return {
+    type: 'NEW_DECK',
+    name
+  }
+}

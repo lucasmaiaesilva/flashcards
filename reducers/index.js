@@ -27,9 +27,21 @@ export default function reducer (state = initialState, action) {
   switch (action.type) {
   case 'LIST_DECKS':
     return {
+      decks: state,
       listDecks: Object.keys(state).map(item => ({
         name: item, cards: initialState[item].questions.length
       }))
+    }
+  case 'NEW_DECK':
+    return {
+      ...state,
+      decks: {
+        ...initialState,
+        [action.name]: {
+          title: action.name,
+          questions: []
+        }
+      }
     }
   default:
     return state

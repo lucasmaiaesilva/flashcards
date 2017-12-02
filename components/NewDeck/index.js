@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import { container, deckTitle } from './../../utils/styles'
+import { newDeck } from './../../actions/deck'
 import { blue } from './../../utils/colors'
 
 class NewDeck extends Component {
@@ -13,6 +15,8 @@ class NewDeck extends Component {
 
   render () {
     const { titleDeck } = this.state
+    const { dispatch, data } = this.props
+    console.log(titleDeck.target)
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
@@ -24,12 +28,12 @@ class NewDeck extends Component {
             style={styles.input}
             value={titleDeck}
             placeholder='question for the card'
-            onChange={text => this.setState({ titleDeck: text })}
+            onChangeText={text => this.setState({ titleDeck: text })}
           />
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: blue, alignSelf: 'center' }]}
-            onPress={() => alert('submited value')}
+            onPress={() => dispatch(newDeck(titleDeck))}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
           </TouchableOpacity>
@@ -56,9 +60,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 3,
     borderWidth: 0,
-    width: 200,
-    textAlign: 'center'
+    width: 200
   }
 })
 
-export default NewDeck
+const mapStateToProps = state => ({
+  data: state
+})
+
+export default connect(mapStateToProps)(NewDeck)
