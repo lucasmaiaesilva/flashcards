@@ -33,15 +33,10 @@ export default function reducer (state = initialState, action) {
       }))
     }
   case 'NEW_DECK':
+    console.log('NEW_DECK')
     return {
       ...state,
-      decks: {
-        ...initialState,
-        [action.name]: {
-          title: action.name,
-          questions: []
-        }
-      }
+      decks: 'teste de retorno'
     }
   default:
     return state

@@ -16,7 +16,6 @@ class NewDeck extends Component {
   render () {
     const { titleDeck } = this.state
     const { dispatch, data } = this.props
-    console.log(titleDeck.target)
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
@@ -33,7 +32,11 @@ class NewDeck extends Component {
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: blue, alignSelf: 'center' }]}
-            onPress={() => dispatch(newDeck(titleDeck))}
+            onPress={() => {
+              dispatch(newDeck(titleDeck))
+              alert('Data inserted succesfully!')
+              console.log(this.props.data)
+            }}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
           </TouchableOpacity>
