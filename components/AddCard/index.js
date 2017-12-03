@@ -22,7 +22,7 @@ class AddCard extends Component {
     return card
   }
 
-  submitValue = () => {
+  submitValue = async () => {
     const { dispatch, navigation, deckList } = this.props
     const { question, answer } = this.state
     const cardName = this.getCard(this.props)
@@ -38,10 +38,9 @@ class AddCard extends Component {
         questions
       }
     }
-    // console.log(questions)
-    // await dispatch(createNewCard())
+    await dispatch(createNewCard(newObj))
     alert('Card Succesfully created')
-    console.log(newObj)
+    console.log(deckList)
   }
 
   render () {
