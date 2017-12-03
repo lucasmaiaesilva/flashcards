@@ -14,27 +14,38 @@ class AddCard extends Component {
     }
   }
 
-  submitValue = async () => {
-    const { navigation = {} } = this.props
+  getCard (props) {
+    const { navigation = {} } = props
     const { state = {} } = navigation
     const { params = {} } = state
     const { card = {} } = params
-    const { dispatch, navigation, newDeckWithCardInserted } = this.props
-    await dispatch(createNewCard({
-      [card]: {
-        title: card,
-        questions: []
+    return card
+  }
+
+  submitValue = () => {
+    const { dispatch, navigation, deckList } = this.props
+    const { question, answer } = this.state
+    const cardName = this.getCard(this.props)
+    const questionObj = {
+      question,
+      answer
+    }
+    const questions = deckList[cardName].questions
+    questions.push(questionObj)
+    const newObj = {
+      [cardName]: {
+        title: cardName,
+        questions
       }
-    }))
+    }
+    // console.log(questions)
+    // await dispatch(createNewCard())
     alert('Card Succesfully created')
-    console.log(this.props.newDeckWithCardInserted)
+    console.log(newObj)
   }
 
   render () {
-    const { navigation = {} } = this.props
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { card = {} } = params
+    const card = this.getCard(this.props)
     const { question, answer } = this.state
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
@@ -47,14 +58,14 @@ class AddCard extends Component {
             style={styles.input}
             value={question}
             placeholder='question for the card'
-            onChange={text => this.setState({ question: text })}
+            onChangeText={text => this.setState({ question: text })}
           />
 
           <TextInput
             style={styles.input}
             value={answer}
             placeholder='Answer for the question above'
-            onChange={text => this.setState({ answer: text })}
+            onChangeText={text => this.setState({ answer: text })}
           />
 
           <TouchableOpacity
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   return {
-    newDeckWithCardInserted: state.decks
+    deckList: state.decks
   }
 }
 
