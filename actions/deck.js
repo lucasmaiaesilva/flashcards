@@ -10,3 +10,10 @@ export function newDeck (name) {
     name
   }
 }
+
+export function createNewCard (name) {
+  return {
+    type: 'ADD_CARD',
+    name
+  }
+}

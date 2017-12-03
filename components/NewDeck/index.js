@@ -34,8 +34,8 @@ class NewDeck extends Component {
             style={[styles.button, { backgroundColor: blue, alignSelf: 'center' }]}
             onPress={() => {
               dispatch(newDeck(titleDeck))
-              alert('Data inserted succesfully!')
               console.log(this.props.data)
+              // alert('Data inserted succesfully!')
             }}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-  data: state
+  data: state.listDeck
 })
 
 export default connect(mapStateToProps)(NewDeck)

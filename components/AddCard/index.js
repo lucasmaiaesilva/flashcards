@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import { container, deckTitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
+import { createNewCard } from './../../actions/deck'
 
 class AddCard extends Component {
   constructor () {
@@ -10,6 +12,22 @@ class AddCard extends Component {
       question: '',
       answer: ''
     }
+  }
+
+  submitValue = async () => {
+    const { navigation = {} } = this.props
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { card = {} } = params
+    const { dispatch, navigation, newDeckWithCardInserted } = this.props
+    await dispatch(createNewCard({
+      [card]: {
+        title: card,
+        questions: []
+      }
+    }))
+    alert('Card Succesfully created')
+    console.log(this.props.newDeckWithCardInserted)
   }
 
   render () {
@@ -41,7 +59,7 @@ class AddCard extends Component {
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: blue, alignSelf: 'flex-end' }]}
-            onPress={() => alert('submited value')}
+            onPress={this.submitValue}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
           </TouchableOpacity>
@@ -72,4 +90,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddCard
+function mapStateToProps (state) {
+  return {
+    newDeckWithCardInserted: state.decks
+  }
+}
+
+export default connect(mapStateToProps)(AddCard)

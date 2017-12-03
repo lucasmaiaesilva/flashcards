@@ -1,8 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { createStore } from 'redux'
+// import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 import Decks from './components/Decks'
@@ -36,14 +36,9 @@ const DecksNavigator = StackNavigator({
   }
 })
 
-const store = createStore(
-  reducer,
-  applyMiddleware(thunk)
-)
-
 export default function App () {
   return (
-    <Provider store={store}>
+    <Provider store={createStore(reducer)}>
       <View style={{ flex: 1 }}>
         <FlashCardsStatusBar backgroundColor='#0D8ABC' barStyle='light-content' />
         <DecksNavigator />
