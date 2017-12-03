@@ -13,6 +13,20 @@ class NewDeck extends Component {
     }
   }
 
+  submit = async () => {
+    const { titleDeck } = this.state
+    const { decks, dispatch } = this.props
+    const newDeckObj = {
+      [titleDeck]: {
+        title: titleDeck,
+        questions: []
+      }
+    }
+    await dispatch(newDeck(newDeckObj))
+    alert('data succesfully updated')
+    console.log(this.props.decks)
+  }
+
   render () {
     const { titleDeck } = this.state
     const { dispatch, data } = this.props
@@ -32,11 +46,7 @@ class NewDeck extends Component {
 
           <TouchableOpacity
             style={[styles.button, { backgroundColor: blue, alignSelf: 'center' }]}
-            onPress={() => {
-              dispatch(newDeck(titleDeck))
-              console.log(this.props.data)
-              // alert('Data inserted succesfully!')
-            }}
+            onPress={this.submit}
           >
             <Text style={{ fontSize: 18, color: '#fff', textAlign: 'center' }}>Submit</Text>
           </TouchableOpacity>
@@ -68,7 +78,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-  data: state.listDeck
+  decks: state
 })
 
 export default connect(mapStateToProps)(NewDeck)

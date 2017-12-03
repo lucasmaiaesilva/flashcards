@@ -1,3 +1,5 @@
+import { LIST_DECKS, NEW_DECK, ADD_CARD } from './../actions/deck'
+
 const initialState = {
   React: {
     title: 'React',
@@ -25,25 +27,22 @@ const initialState = {
 
 export default function reducer (state = initialState, action) {
   switch (action.type) {
-  case 'LIST_DECKS':
+  case LIST_DECKS:
     return {
       decks: state,
       listDecks: Object.keys(state).map(item => ({
         name: item, cards: initialState[item].questions.length
       }))
     }
-  case 'NEW_DECK':
+  case NEW_DECK:
     return {
       ...state,
       decks: {
         ...state.decks,
-        [action.name]: {
-          title: action.name,
-          questions: []
-        }
+        ...action.item
       }
     }
-  case 'ADD_CARD':
+  case ADD_CARD:
     return {
       ...state,
       decks: {
