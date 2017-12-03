@@ -13,7 +13,7 @@ class NewDeck extends Component {
     }
   }
 
-  submit = async () => {
+  async submit () {
     const { titleDeck } = this.state
     const { decks, dispatch } = this.props
     const newDeckObj = {

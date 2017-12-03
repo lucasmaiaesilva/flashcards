@@ -21,8 +21,7 @@ class AddCard extends Component {
     const { card = {} } = params
     return card
   }
-
-  submitValue = async () => {
+  async submitValue () {
     const { dispatch, navigation, deckList } = this.props
     const { question, answer } = this.state
     const cardName = this.getCard(this.props)
@@ -30,7 +29,7 @@ class AddCard extends Component {
       question,
       answer
     }
-    const questions = deckList[cardName].questions
+    const { questions } = deckList[cardName]
     questions.push(questionObj)
     const newObj = {
       [cardName]: {
