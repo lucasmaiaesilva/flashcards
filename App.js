@@ -19,6 +19,14 @@ const Tabs = TabNavigator({
   NewDeck: {
     screen: NewDeck
   }
+}, {
+  navigationOptions: {
+    header: null
+  }
+}, {
+  tabBarOptions: {
+    activeTintColor: '#fff'
+  }
 })
 
 const DecksNavigator = StackNavigator({

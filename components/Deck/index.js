@@ -1,33 +1,50 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
-const Deck = (props) => {
-  const { navigation = {} } = props
-  const { state = {} } = navigation
-  const { params = {} } = state
-  const { card = {} } = params
-  return (
-    <View style={container}>
-      <Text style={[styles.deckTitle, { fontSize: 30 }]}>
-        {card.name}
-      </Text>
-      <Text style={[styles.deckSubtitle, { fontSize: 17 }]}>
-        {card.cards} {card.cards === 1 ? 'card' : 'cards'}
-      </Text>
-      <View style={{ marginTop: 80, width: 300 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: card.name })}>
-          <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
-          <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
-            start a quiz
-          </Text>
-        </TouchableOpacity>
+class Deck extends Component {
+  static navigationOptions ({ navigation }) {
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { card = {} } = params
+    return {
+      title: card.name
+    }
+  }
+
+  getCard () {
+    const { navigation = {} } = this.props
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { card = {} } = params
+    return card
+  }
+
+  render () {
+    const { navigation = {} } = this.props
+    const card = this.getCard()
+    return (
+      <View style={container}>
+        <Text style={[styles.deckTitle, { fontSize: 30 }]}>
+          {card.name}
+        </Text>
+        <Text style={[styles.deckSubtitle, { fontSize: 17 }]}>
+          {card.cards} {card.cards === 1 ? 'card' : 'cards'}
+        </Text>
+        <View style={{ marginTop: 80, width: 300 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: card.name })}>
+            <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+            <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
+              start a quiz
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
