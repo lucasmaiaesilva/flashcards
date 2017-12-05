@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { AsyncStorage, Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { listDecks } from './../../actions/deck'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { darkGray } from './../../utils/colors'
+import initialData from './../../utils/initialData'
 
 class Decks extends Component {
-  componentDidMount () {
+  async componentWillMount () {
+    const key = '@Udacity:flashcards'
     const { dispatch } = this.props
-    dispatch(listDecks())
+    await AsyncStorage.setItem(key, JSON.stringify(initialData))
+    AsyncStorage.getItem(key).then((decks) => {
+      dispatch(listDecks(JSON.parse(decks)))
+    })
   }
+
   render () {
     const { decks, navigation = {} } = this.props
     if (decks === undefined) {

@@ -39,7 +39,7 @@ class AddCard extends Component {
     }
     await dispatch(createNewCard(newObj))
     alert('Card Succesfully created')
-    console.log(deckList)
+    console.log('Updated list', deckList)
   }
 
   render () {

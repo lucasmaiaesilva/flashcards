@@ -1,35 +1,50 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
+
 import { container, deckTitle } from './../../utils/styles'
 import { newDeck } from './../../actions/deck'
 import { blue } from './../../utils/colors'
 
 class NewDeck extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       titleDeck: ''
     }
   }
 
-  async submit () {
+  submit = async () => {
     const { titleDeck } = this.state
-    const { decks, dispatch } = this.props
+    const { decks, dispatch, navigation } = this.props
     const newDeckObj = {
       [titleDeck]: {
         title: titleDeck,
         questions: []
       }
     }
+
+    const key = '@Udacity:flashcards'
     await dispatch(newDeck(newDeckObj))
     alert('data succesfully updated')
-    console.log(this.props.decks)
+    AsyncStorage.setItem(key, JSON.stringify(decks))
+    
+    const navigateAction = NavigationActions.navigate({
+      routeName: 'NewDeck',
+      params: { decks },
+      action: NavigationActions.navigate({ routeName: 'Home'})
+    })
   }
+
+
 
   render () {
     const { titleDeck } = this.state
-    const { dispatch, data } = this.props
+    const { dispatch, decks } = this.props
+
+
+    console.log('newDeck:', this.props)
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
