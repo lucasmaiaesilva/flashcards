@@ -5,25 +5,14 @@ import { blue } from './../../utils/colors'
 
 class Deck extends Component {
   static navigationOptions ({ navigation }) {
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { card = {} } = params
     return {
-      title: card.name
+      title: navigation.state.params.deckList.name
     }
-  }
-
-  getCard () {
-    const { navigation = {} } = this.props
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { card = {} } = params
-    return card
   }
 
   render () {
     const { navigation = {} } = this.props
-    const card = this.getCard()
+    const card = navigation.state.params.deckList
     return (
       <View style={container}>
         <Text style={[styles.deckTitle, { fontSize: 30 }]}>
