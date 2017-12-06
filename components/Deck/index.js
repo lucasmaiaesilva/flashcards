@@ -12,7 +12,11 @@ class Deck extends Component {
 
   render () {
     const { navigation = {} } = this.props
-    const card = navigation.state.params.deckList
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { deckList, decks } = params
+    const card = deckList
+    const { questions } = decks
     return (
       <View style={container}>
         <Text style={[styles.deckTitle, { fontSize: 30 }]}>
@@ -22,10 +26,10 @@ class Deck extends Component {
           {card.cards} {card.cards === 1 ? 'card' : 'cards'}
         </Text>
         <View style={{ marginTop: 80, width: 300 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: card.name })}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: decks })}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Quiz', { questions })}>
             <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
               start a quiz
             </Text>

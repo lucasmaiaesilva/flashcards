@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native'
-import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-
 import { container, deckTitle } from './../../utils/styles'
-import { newDeck } from './../../actions/deck'
 import { blue } from './../../utils/colors'
 
 class NewDeck extends Component {
@@ -16,25 +13,25 @@ class NewDeck extends Component {
   }
 
   submit = async () => {
-    const { titleDeck } = this.state
-    const { decks, dispatch, navigation } = this.props
-    const newDeckObj = {
-      [titleDeck]: {
-        title: titleDeck,
-        questions: []
-      }
-    }
+    // const { titleDeck } = this.state
+    // const { decks, dispatch, navigation } = this.props
+    // const newDeckObj = {
+    //   [titleDeck]: {
+    //     title: titleDeck,
+    //     questions: []
+    //   }
+    // }
 
-    const key = '@Udacity:flashcards'
-    await dispatch(newDeck(newDeckObj))
-    alert('data succesfully updated')
-    AsyncStorage.setItem(key, JSON.stringify(decks))
+    // const key = '@Udacity:flashcards'
+    // await dispatch(newDeck(newDeckObj))
+    // alert('data succesfully updated')
+    // AsyncStorage.setItem(key, JSON.stringify(decks))
     
-    const navigateAction = NavigationActions.navigate({
-      routeName: 'NewDeck',
-      params: { decks },
-      action: NavigationActions.navigate({ routeName: 'Home'})
-    })
+    // const navigateAction = NavigationActions.navigate({
+    //   routeName: 'NewDeck',
+    //   params: { decks },
+    //   action: NavigationActions.navigate({ routeName: 'Home'})
+    // })
   }
 
 
@@ -92,8 +89,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => ({
-  decks: state
-})
-
-export default connect(mapStateToProps)(NewDeck)
+export default NewDeck
