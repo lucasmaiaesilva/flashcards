@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import { AsyncStorage, Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 // import { listDecks } from './../../actions/deck'
+import { getDecks, setDecks, STORAGE_KEY } from './../../utils/api'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { darkGray } from './../../utils/colors'
 import initialData from './../../utils/initialData.json'
@@ -17,10 +18,9 @@ class Decks extends Component {
     }
   }
   async componentDidMount () {
-    const key = '@Udacity:flashcards'
     const { dispatch } = this.props
-    await AsyncStorage.setItem(key, JSON.stringify(initialData))
-    AsyncStorage.getItem(key).then((result) => {
+    await setDecks(initialData)
+    getDecks().then((result) => {
       const decks = JSON.parse(result)
       const deckList = Object.keys(decks).map(item => ({ name: item, cards: decks[item].questions.length }))
       this.setState({
@@ -31,10 +31,19 @@ class Decks extends Component {
     })
   }
 
+  componentWillReceiveProps (nextProps) {
+    alert(JSON.stringify(nextProps))
+    // console.log('nextProps', nextProps)
+    // console.log('props', this.props)
+    // this.setState({
+    //   isFetching: true
+    // })
+  }
+
   render () {
     const { navigation = {} } = this.props
     const { decks, deckList, isFetching } = this.state
-    console.log(decks)
+    // console.log(decks)
     if (isFetching) {
       return (
         <View style={styles.container}>
@@ -44,6 +53,7 @@ class Decks extends Component {
     }
     return (
       <View>
+        {/* <Text>Olá mundo de novo pela última vez se Deus quiser</Text> */}
         {deckList.map((item, index) => (
           <TouchableOpacity
             key={item.name}
