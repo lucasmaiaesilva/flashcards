@@ -1,37 +1,12 @@
 import { LIST_DECKS, NEW_DECK, ADD_CARD } from './../actions/deck'
 
-const initialState = {
-  React: {
-    title: 'React',
-    questions: [
-      {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-      },
-      {
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
-      }
-    ]
-  },
-  JavaScript: {
-    title: 'JavaScript',
-    questions: [
-      {
-        question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.'
-      }
-    ]
-  }
-}
-
-export default function reducer (state = initialState, action) {
+export default function reducer (state = {}, action) {
   switch (action.type) {
   case LIST_DECKS:
     return {
-      decks: state,
-      listDecks: Object.keys(state).map(item => ({
-        name: item, cards: initialState[item].questions.length
+      decks: action.decks,
+      listDecks: Object.keys(action.decks).map(item => ({
+        name: item, cards: action.decks[item].questions.length
       }))
     }
   case NEW_DECK:

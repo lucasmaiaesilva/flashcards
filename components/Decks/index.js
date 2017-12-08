@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
-// import { connect } from 'react-redux'
-import { AsyncStorage, Text, View, StyleSheet, TouchableOpacity } from 'react-native'
-// import { listDecks } from './../../actions/deck'
-import { getDecks, setDecks, STORAGE_KEY } from './../../utils/api'
+import { connect } from 'react-redux'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { listDecks } from './../../actions/deck'
+import { getDecks, setDecks } from './../../utils/api'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { darkGray } from './../../utils/colors'
 import initialData from './../../utils/initialData.json'
@@ -12,38 +12,25 @@ class Decks extends Component {
   constructor () {
     super()
     this.state = {
-      isFetching: true,
-      decks: [],
-      deckList: []
+      isFetching: true
     }
   }
   async componentDidMount () {
     const { dispatch } = this.props
     await setDecks(initialData)
+
     getDecks().then((result) => {
-      const decks = JSON.parse(result)
-      const deckList = Object.keys(decks).map(item => ({ name: item, cards: decks[item].questions.length }))
+      dispatch(listDecks(JSON.parse(result)))
       this.setState({
-        deckList,
-        decks,
         isFetching: false
       })
     })
   }
 
-  componentWillReceiveProps (nextProps) {
-    alert(JSON.stringify(nextProps))
-    // console.log('nextProps', nextProps)
-    // console.log('props', this.props)
-    // this.setState({
-    //   isFetching: true
-    // })
-  }
-
   render () {
-    const { navigation = {} } = this.props
-    const { decks, deckList, isFetching } = this.state
-    // console.log(decks)
+    const { navigation = {}, decks } = this.props
+    const { isFetching } = this.state
+    console.log(decks)
     if (isFetching) {
       return (
         <View style={styles.container}>
@@ -53,8 +40,7 @@ class Decks extends Component {
     }
     return (
       <View>
-        {/* <Text>Olá mundo de novo pela última vez se Deus quiser</Text> */}
-        {deckList.map((item, index) => (
+        {decks.map((item, index) => (
           <TouchableOpacity
             key={item.name}
             style={styles.item}
@@ -97,4 +83,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Decks
+const mapStateToProps = state => ({
+  decks: state.listDecks
+})
+
+export default connect(mapStateToProps)(Decks)

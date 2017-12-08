@@ -39,9 +39,6 @@ class NewDeck extends Component {
   render () {
     const { titleDeck } = this.state
     const { dispatch, decks } = this.props
-
-
-    console.log('newDeck:', this.props)
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
