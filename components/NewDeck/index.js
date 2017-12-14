@@ -31,6 +31,8 @@ class NewDeck extends Component {
       .then(res => dispatch(listDecks(JSON.parse(res))))
       .then(() => {
         alert('Data inserted with success')
+        const { navigation } = this.props
+        navigation.navigate('Decks')
       })
   }
 
