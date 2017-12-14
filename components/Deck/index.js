@@ -6,7 +6,7 @@ import { blue } from './../../utils/colors'
 class Deck extends Component {
   static navigationOptions ({ navigation }) {
     return {
-      title: navigation.state.params.deckList.name
+      title: navigation.state.params.name
     }
   }
 
@@ -14,19 +14,18 @@ class Deck extends Component {
     const { navigation = {} } = this.props
     const { state = {} } = navigation
     const { params = {} } = state
-    const { deckList, decks } = params
-    const card = deckList
-    const { questions } = decks
+    const { deck, name } = params
+    const { questions } = deck
     return (
       <View style={container}>
         <Text style={[styles.deckTitle, { fontSize: 30 }]}>
-          {card.name}
+          {name}
         </Text>
         <Text style={[styles.deckSubtitle, { fontSize: 17 }]}>
-          {card.cards} {card.cards === 1 ? 'card' : 'cards'}
+          {deck.cards} {deck.cards === 1 ? 'card' : 'cards'}
         </Text>
         <View style={{ marginTop: 80, width: 300 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: decks })}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { card: deck })}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Quiz', { questions })}>

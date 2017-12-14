@@ -45,7 +45,7 @@ class Decks extends Component {
             style={styles.item}
             onPress={() => navigation.navigate(
               'Deck',
-              { decks: decks[item.name], deckList: item }
+              { name: item.name, deck: item }
             )}
           >
             <Text style={[styles.deckTitle, { fontSize: 22 }]}>
