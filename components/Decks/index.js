@@ -30,7 +30,6 @@ class Decks extends Component {
   render () {
     const { navigation = {}, decks } = this.props
     const { isFetching } = this.state
-    console.log(decks)
     if (isFetching) {
       return (
         <View style={styles.container}>

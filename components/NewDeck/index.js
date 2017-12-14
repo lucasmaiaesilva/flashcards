@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, Alert, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity, AsyncStorage } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { updateDecks, getDecks } from './../../utils/api'
+import { listDecks } from './../../actions/deck'
 import { container, deckTitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
@@ -13,32 +16,26 @@ class NewDeck extends Component {
   }
 
   submit = async () => {
-    // const { titleDeck } = this.state
-    // const { decks, dispatch, navigation } = this.props
-    // const newDeckObj = {
-    //   [titleDeck]: {
-    //     title: titleDeck,
-    //     questions: []
-    //   }
-    // }
+    const { titleDeck } = this.state
+    const { dispatch } = this.props
 
-    // const key = '@Udacity:flashcards'
-    // await dispatch(newDeck(newDeckObj))
-    // alert('data succesfully updated')
-    // AsyncStorage.setItem(key, JSON.stringify(decks))
-    
-    // const navigateAction = NavigationActions.navigate({
-    //   routeName: 'NewDeck',
-    //   params: { decks },
-    //   action: NavigationActions.navigate({ routeName: 'Home'})
-    // })
+    const newDeckObj = {
+      [titleDeck]: {
+        title: titleDeck,
+        questions: []
+      }
+    }
+
+    await updateDecks(newDeckObj)
+    getDecks()
+      .then(res => dispatch(listDecks(JSON.parse(res))))
+      .then(() => {
+        alert('Data inserted with success')
+      })
   }
-
-
 
   render () {
     const { titleDeck } = this.state
-    const { dispatch, decks } = this.props
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
@@ -86,4 +83,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect()(NewDeck)
