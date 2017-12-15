@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { listDecks } from './../../actions/deck'
+import { getDecks, updateDecks } from './../../utils/api'
 import { container, deckTitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
@@ -12,38 +15,39 @@ class AddCard extends Component {
     }
   }
 
-  // async submitValue () {
-  //   const { dispatch, navigation, deckList } = this.props
-  //   const { question, answer } = this.state
-  //   const cardName = this.getCard(this.props)
-  //   const questionObj = {
-  //     question,
-  //     answer
-  //   }
-  //   const { questions } = deckList[cardName]
-  //   questions.push(questionObj)
-  //   const newObj = {
-  //     [cardName]: {
-  //       title: cardName,
-  //       questions
-  //     }
-  //   }
-  //   await dispatch(createNewCard(newObj))
-  //   alert('Card Succesfully created')
-  //   console.log('Updated list', deckList)
-  // }
+  submitValue = async () => {
+    const { question, answer } = this.state
+    const { dispatch, navigation, deck, decks } = this.props
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { name } = params
+    console.log('decks', decks)
+    const { questions } = deck
+    questions.push(this.state)
+    console.log('deck', deck)
+    const newObj = {
+      [name]: {
+        title: name,
+        questions
+      }
+    }
+    await updateDecks(newObj)
+    getDecks()
+      .then(res => dispatch(listDecks(JSON.parse(res))))
+      .then(() => {
+        alert('New card Inserted with success!')
+        const { navigation } = this.props
+        navigation.navigate('Decks')
+      })
+  }
 
   render () {
     const { question, answer } = this.state
-    const { navigation } = this.props
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { card } = params
     return (
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={{ width: 300 }}>
           <Text style={[styles.deckTitle, { fontSize: 18, marginBottom: 30, textAlign: 'center' }]}>
-            Type your question for the new {card.title} Card
+            Type your question for the new Card
           </Text>
 
           <TextInput
@@ -93,4 +97,15 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddCard
+const mapStateToProps = (reduxState, props) => {
+  const { navigation } = props
+  const { state = {} } = navigation
+  const { params = {} } = state
+  const { name } = params
+  return {
+    deck: reduxState.decks[name],
+    decks: reduxState.decks
+  }
+}
+
+export default connect(mapStateToProps)(AddCard)
