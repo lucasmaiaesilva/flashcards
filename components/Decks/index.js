@@ -12,19 +12,8 @@ class Decks extends Component {
   constructor () {
     super()
     this.state = {
-      isFetching: true
+      isFetching: false
     }
-  }
-  async componentDidMount () {
-    const { dispatch } = this.props
-    await setDecks(initialData)
-
-    getDecks().then((result) => {
-      dispatch(listDecks(JSON.parse(result)))
-      this.setState({
-        isFetching: false
-      })
-    })
   }
 
   render () {
@@ -39,23 +28,17 @@ class Decks extends Component {
     }
     return (
       <View>
-        {decks.map((item, index) => (
-          <TouchableOpacity
-            key={item.name}
-            style={styles.item}
-            onPress={() => navigation.navigate(
-              'Deck',
-              { name: item.name, deck: item }
-            )}
-          >
-            <Text style={[styles.deckTitle, { fontSize: 22 }]}>
-              {item.name}
-            </Text>
-            <Text style={[styles.deckSubtitle, { fontSize: 13 }]}>
-              {item.cards} {item.cards === 1 ? 'card' : 'cards'}
-            </Text>
-          </TouchableOpacity>
-        ))}
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => navigation.navigate('Deck')}
+        >
+          <Text style={[styles.deckTitle, { fontSize: 22 }]}>
+            NodeJS
+          </Text>
+          <Text style={[styles.deckSubtitle, { fontSize: 13 }]}>
+            5 cards
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }

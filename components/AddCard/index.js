@@ -13,32 +13,11 @@ class AddCard extends Component {
       question: '',
       answer: ''
     }
+    this.submitValue = this.submitValue.bind(this)
   }
 
-  submitValue = async () => {
-    const { question, answer } = this.state
-    const { dispatch, navigation, deck, decks } = this.props
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { name } = params
-    console.log('decks', decks)
-    const { questions } = deck
-    questions.push(this.state)
-    console.log('deck', deck)
-    const newObj = {
-      [name]: {
-        title: name,
-        questions
-      }
-    }
-    await updateDecks(newObj)
-    getDecks()
-      .then(res => dispatch(listDecks(JSON.parse(res))))
-      .then(() => {
-        alert('New card Inserted with success!')
-        const { navigation } = this.props
-        navigation.navigate('Decks')
-      })
+  submitValue () {
+    const { answer, question } = this.state
   }
 
   render () {
@@ -97,14 +76,9 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (reduxState, props) => {
-  const { navigation } = props
-  const { state = {} } = navigation
-  const { params = {} } = state
-  const { name } = params
+const mapStateToProps = (state) => {
   return {
-    deck: reduxState.decks[name],
-    decks: reduxState.decks
+    decks: state.decks
   }
 }
 

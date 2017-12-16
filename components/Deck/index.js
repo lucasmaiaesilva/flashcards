@@ -5,34 +5,32 @@ import { blue } from './../../utils/colors'
 
 class Deck extends Component {
   static navigationOptions ({ navigation }) {
+    // return {
+    //   title: navigation.state.params.name
+    // }
     return {
-      title: navigation.state.params.name
+      title: 'Node JS'
     }
   }
 
   render () {
-    const { navigation = {} } = this.props
-    const { state = {} } = navigation
-    const { params = {} } = state
-    const { deck, name } = params
-    const { questions } = deck
-    console.log('DECK ...', deck)
+    const { navigation } = this.props
     return (
       <View style={container}>
         <Text style={[styles.deckTitle, { fontSize: 30 }]}>
-          {name}
+          NodeJS
         </Text>
 
         <Text style={[styles.deckSubtitle, { fontSize: 17 }]}>
-          {deck.cards} {deck.cards === 1 ? 'card' : 'cards'}
+          5 cards
         </Text>
 
         <View style={{ marginTop: 80, width: 300 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { name })}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddCard')}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Quiz', { questions })}>
+          <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
             <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
               start a quiz
             </Text>
