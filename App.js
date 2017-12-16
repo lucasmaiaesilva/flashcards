@@ -4,12 +4,12 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import Decks from './components/Decks'
-import Deck from './components/Deck/'
-import AddCard from './components/AddCard'
-import NewDeck from './components/NewDeck'
-import Quiz from './components/Quiz'
-import FlashCardsStatusBar from './components/FlashCardsStatusBar/'
+import Decks from './Screens/Decks'
+import Deck from './Screens/Deck/'
+import AddCard from './Screens/AddCard'
+import NewDeck from './Screens/NewDeck'
+import Quiz from './Screens/Quiz'
+import FlashCardsStatusBar from './Screens/FlashCardsStatusBar/'
 
 const Tabs = TabNavigator({
   Decks: {
