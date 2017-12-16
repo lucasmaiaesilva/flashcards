@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import Card from './../../Components/CardIntroduction'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
@@ -17,14 +18,8 @@ class Deck extends Component {
     const { navigation } = this.props
     return (
       <View style={container}>
-        <Text style={[styles.deckTitle, { fontSize: 30 }]}>
-          NodeJS
-        </Text>
-
-        <Text style={[styles.deckSubtitle, { fontSize: 17 }]}>
-          5 cards
-        </Text>
-
+        <Card titleSize={30} subtitleSize={17} />
+        
         <View style={{ marginTop: 80, width: 300 }}>
           <TouchableOpacity onPress={() => navigation.navigate('AddCard')}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import Card from './../../Components/CardIntroduction'
 import { listDecks } from './../../actions/deck'
 import { getDecks, setDecks } from './../../utils/api'
-import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { darkGray } from './../../utils/colors'
 import initialData from './../../utils/initialData.json'
 
@@ -32,12 +32,7 @@ class Decks extends Component {
           style={styles.item}
           onPress={() => navigation.navigate('Deck')}
         >
-          <Text style={[styles.deckTitle, { fontSize: 22 }]}>
-            NodeJS
-          </Text>
-          <Text style={[styles.deckSubtitle, { fontSize: 13 }]}>
-            5 cards
-          </Text>
+          <Card titleSize={22} subtitleSize={13} />
         </TouchableOpacity>
       </View>
     )
@@ -53,15 +48,11 @@ class Decks extends Component {
 // }
 
 const styles = StyleSheet.create({
-  container,
-  deckTitle,
-  deckSubtitle,
   item: {
     height: 100,
     borderBottomColor: darkGray,
     borderBottomWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'center'
   }
 })
 

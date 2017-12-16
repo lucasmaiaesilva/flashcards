@@ -9,7 +9,7 @@ import Deck from './Screens/Deck/'
 import AddCard from './Screens/AddCard'
 import NewDeck from './Screens/NewDeck'
 import Quiz from './Screens/Quiz'
-import FlashCardsStatusBar from './Screens/FlashCardsStatusBar/'
+import FlashCardsStatusBar from './Components/FlashCardsStatusBar/'
 
 const Tabs = TabNavigator({
   Decks: {
