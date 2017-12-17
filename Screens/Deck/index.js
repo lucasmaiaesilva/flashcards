@@ -6,20 +6,20 @@ import { blue } from './../../utils/colors'
 
 class Deck extends Component {
   static navigationOptions ({ navigation }) {
-    // return {
-    //   title: navigation.state.params.name
-    // }
     return {
-      title: 'Node JS'
+      title: navigation.state.params.deck.title
     }
+    // return {
+    //   title: 'Node JS'
+    // }
   }
 
   render () {
     const { navigation } = this.props
     return (
       <View style={container}>
-        <Card titleSize={30} subtitleSize={17} />
-        
+        <Card titleSize={30} subtitleSize={17} deck={navigation.state.params.deck} />
+
         <View style={{ marginTop: 80, width: 300 }}>
           <TouchableOpacity onPress={() => navigation.navigate('AddCard')}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>

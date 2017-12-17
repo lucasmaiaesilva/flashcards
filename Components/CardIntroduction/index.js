@@ -4,14 +4,15 @@ import PropTypes from 'prop-types'
 import { deckTitle, deckSubtitle } from './../../utils/styles'
 
 const CardIntroduction = (props) => {
-  const { titleSize, subtitleSize } = props
+  const { titleSize, subtitleSize, deck } = props
+  const cards = deck.questions.length
   return (
     <View style={styles.container}>
       <Text style={[styles.deckTitle, { fontSize: titleSize }]}>
-        NodeJS
+        {deck.title}
       </Text>
       <Text style={[styles.deckSubtitle, { fontSize: subtitleSize }]}>
-        5 cards
+        {cards} {cards === 1 ? 'card' : 'cards'}
       </Text>
     </View>
   )
