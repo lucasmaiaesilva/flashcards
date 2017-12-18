@@ -8,7 +8,9 @@ class Quiz extends Component {
     super()
     this.state = {
       indexQuestion: 0,
-      isAnswer: true
+      isAnswer: true,
+      correctAnswers: 0,
+      result: 0
     }
   }
 
@@ -18,16 +20,34 @@ class Quiz extends Component {
     }))
   }
 
-  handleResult = (result, totalQuestions) => {
-    const { indexQuestion } = this.state
+  handleResult = async (result, totalQuestions) => {
+    const { indexQuestion, correctAnswers } = this.state
     if (totalQuestions === indexQuestion + 1) {
-      alert('last Page')
+      await this.updateCorrectAnswers(result)
+      alert(`The number of correct answers is: ${this.state.correctAnswers}`)
+      this.setState({
+        indexQuestion: 0,
+        isAnswer: true,
+        correctAnswers: 0,
+        result: 0
+      })
     } else {
+      this.updateCorrectAnswers(result)
       this.setState(prevState => ({
         indexQuestion: prevState.indexQuestion + 1,
         isAnswer: true
       }))
     }
+  }
+
+  updateCorrectAnswers = (answer) => {
+    this.setState((state) => {
+      const { correctAnswers } = state
+      const result = answer === 'correct' ? correctAnswers + 1 : correctAnswers
+      return {
+        correctAnswers: result
+      }
+    })
   }
 
   render () {
