@@ -18,6 +18,18 @@ class Quiz extends Component {
     }))
   }
 
+  handleResult = (result, totalQuestions) => {
+    const { indexQuestion } = this.state
+    if (totalQuestions === indexQuestion + 1) {
+      alert('last Page')
+    } else {
+      this.setState(prevState => ({
+        indexQuestion: prevState.indexQuestion + 1,
+        isAnswer: true
+      }))
+    }
+  }
+
   render () {
     const { navigation = {} } = this.props
     const { state = {} } = navigation
@@ -39,10 +51,12 @@ class Quiz extends Component {
         </TouchableOpacity>
 
         <View style={{ marginTop: 80, width: 300 }}>
-          <TouchableOpacity>
-            <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>Correct</Text>
+          <TouchableOpacity onPress={() => this.handleResult('correct', questions.length)}>
+            <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
+              Correct
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleResult('incorrect', questions.length)}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>
               Incorrect
             </Text>
