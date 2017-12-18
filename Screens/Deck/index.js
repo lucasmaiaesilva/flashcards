@@ -16,16 +16,19 @@ class Deck extends Component {
 
   render () {
     const { navigation } = this.props
+    const { state } = navigation
+    const { params } = state
+    const { deck } = params
     return (
       <View style={container}>
-        <Card titleSize={30} subtitleSize={17} deck={navigation.state.params.deck} />
+        <Card titleSize={30} subtitleSize={17} deck={deck} />
 
         <View style={{ marginTop: 80, width: 300 }}>
           <TouchableOpacity onPress={() => navigation.navigate('AddCard')}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Quiz')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Quiz', { deck })}>
             <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
               start a quiz
             </Text>
