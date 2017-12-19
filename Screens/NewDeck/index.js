@@ -13,11 +13,28 @@ class NewDeck extends Component {
     this.state = {
       titleDeck: ''
     }
-    this.submit = this.submit.bind(this)
+    // this.submit = this.submit.bind(this)
   }
 
-  submit () {
+  submit = async () => {
     const { titleDeck } = this.state
+    const { dispatch } = this.props
+
+    const newDeckObj = {
+      [titleDeck]: {
+        title: titleDeck,
+        questions: []
+      }
+    }
+
+    await updateDecks(newDeckObj)
+    getDecks()
+      .then(res => dispatch(listDecks(JSON.parse(res))))
+      .then(() => {
+        alert('Data inserted with success')
+        const { navigation } = this.props
+        navigation.navigate('Decks')
+      })
   }
 
   render () {
