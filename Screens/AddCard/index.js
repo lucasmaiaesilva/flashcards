@@ -31,7 +31,9 @@ class AddCard extends Component {
       }
     })
     getDecks()
-      .then(res => dispatch(listDecks(res)))
+      .then(res => dispatch(listDecks(JSON.parse(res))))
+      .then(alert('card inserted succesfuly'))
+      .then(navigation.navigate('Decks'))
   }
 
   render () {
