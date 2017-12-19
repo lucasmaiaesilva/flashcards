@@ -13,11 +13,25 @@ class AddCard extends Component {
       question: '',
       answer: ''
     }
-    this.submitValue = this.submitValue.bind(this)
   }
 
-  submitValue () {
+  submitValue = async () => {
+    const { navigation, dispatch } = this.props
+    const { state } = navigation
+    const { params } = state
+    const { deck } = params    
     const { answer, question } = this.state
+    await updateDecks({
+      [deck.title]: {
+        title: deck.title,
+        questions: [
+          { question, answer },
+          ...deck.questions
+        ]
+      }
+    })
+    getDecks()
+      .then(res => dispatch(listDecks(res)))
   }
 
   render () {
@@ -76,10 +90,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (state) => {
-  return {
-    decks: state.decks
-  }
-}
-
-export default connect(mapStateToProps)(AddCard)
+export default connect()(AddCard)

@@ -24,11 +24,15 @@ class Deck extends Component {
         <Card titleSize={30} subtitleSize={17} deck={deck} />
 
         <View style={{ marginTop: 80, width: 300 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddCard')}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddCard', { deck })}>
             <Text style={[styles.button, { borderColor: blue, color: blue }]}>Add a card</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Quiz', { deck })}>
+          <TouchableOpacity 
+            onPress={
+              () => (deck.questions.length === 0 ? alert('please add a card first') : navigation.navigate('Quiz', { deck }))
+            }
+          >
             <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
               start a quiz
             </Text>
