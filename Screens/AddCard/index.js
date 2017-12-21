@@ -21,7 +21,7 @@ class AddCard extends Component {
     const { params } = state
     const { deck } = params    
     const { answer, question } = this.state
-    await updateDecks({
+    const newDeckObj = {
       [deck.title]: {
         title: deck.title,
         questions: [
@@ -29,11 +29,12 @@ class AddCard extends Component {
           ...deck.questions
         ]
       }
-    })
+    } 
+    await updateDecks(newDeckObj)
     getDecks()
       .then(res => dispatch(listDecks(JSON.parse(res))))
       .then(alert('card inserted succesfuly'))
-      .then(navigation.navigate('Decks'))
+      .then(navigation.navigate('Deck', { deck: newDeckObj[deck.title] }))
   }
 
   render () {
