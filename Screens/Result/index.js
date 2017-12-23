@@ -26,7 +26,7 @@ const Result = ({ correctAnswers, startQuiz }) => {
           // }
         >
           <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
-            Return do the Deck View
+            Return to the Deck View
           </Text>
         </TouchableOpacity>
       </View>
