@@ -25,7 +25,12 @@ class Decks extends Component {
     const { updated } = this.state
     if (decks !== undefined) {
       const decksArr = Object.values(decks)
-      if (decksArr.some(item => item.questions.length > nextProps.decks[item.title].questions.length)) {
+      if (decksArr.some((item) => {
+        if (item && item.questions && nextProps.decks && nextProps.decks[item.title]) {
+          return item.questions.length > nextProps.decks[item.title].questions.length
+        }
+        return false
+      })) {
         this.updateComponent(decks)
       }
     }
