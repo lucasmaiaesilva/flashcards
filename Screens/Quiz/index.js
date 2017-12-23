@@ -63,6 +63,15 @@ class Quiz extends Component {
     this.cleanState()
   }
 
+  finishQuiz = () => {
+    const { navigation = {} } = this.props
+    const { state = {} } = navigation
+    const { params = {} } = state
+    const { deck } = params
+    const { questions } = deck
+    navigation.navigate('Deck', { deck })
+  }
+
   render () {
     const { navigation = {} } = this.props
     const { state = {} } = navigation
@@ -77,6 +86,7 @@ class Quiz extends Component {
         <Result
           correctAnswers={correctAnswers}
           startQuiz={this.resetQuiz}
+          finishQuiz={this.finishQuiz}
         />
       )
     }

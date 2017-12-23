@@ -4,7 +4,7 @@ import Card from './../../Components/CardIntroduction'
 import { container, deckTitle, deckSubtitle } from './../../utils/styles'
 import { blue } from './../../utils/colors'
 
-const Result = ({ correctAnswers, startQuiz }) => {
+const Result = ({ correctAnswers, startQuiz, finishQuiz }) => {
   return (
     <View style={container}>
       <Text style={[styles.deckTitle, { fontSize: 30 }]}>
@@ -20,11 +20,7 @@ const Result = ({ correctAnswers, startQuiz }) => {
           <Text style={[styles.button, { borderColor: blue, color: blue }]}>Start Quiz Again</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          // onPress={
-          //   () => (deck.questions.length === 0 ? alert('please add a card first') : navigation.navigate('Quiz', { deck }))
-          // }
-        >
+        <TouchableOpacity onPress={() => finishQuiz()}>
           <Text style={[styles.button, { backgroundColor: blue, color: '#fff', borderColor: blue }]}>
             Return to the Deck View
           </Text>
