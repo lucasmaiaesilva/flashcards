@@ -23,3 +23,5 @@ And then you have to start the project.
 ```sh
 $ npm start
 ```
+
+This project was tested on IOS and Android platforms, in both of platforms the app works correctly.
