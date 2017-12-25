@@ -4,30 +4,12 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-import Decks from './Screens/Decks'
 import Deck from './Screens/Deck/'
 import AddCard from './Screens/AddCard'
-import NewDeck from './Screens/NewDeck'
 import Quiz from './Screens/Quiz'
 import FlashCardsStatusBar from './Components/FlashCardsStatusBar/'
 import { setLocalNotification } from './utils/api'
-
-const Tabs = TabNavigator({
-  Decks: {
-    screen: Decks
-  },
-  NewDeck: {
-    screen: NewDeck
-  }
-}, {
-  navigationOptions: {
-    header: null
-  }
-}, {
-  tabBarOptions: {
-    activeTintColor: '#fff'
-  }
-})
+import Tabs from './Components/Tabs/'
 
 const DecksNavigator = StackNavigator({
   Home: {
