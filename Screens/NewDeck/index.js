@@ -13,7 +13,6 @@ class NewDeck extends Component {
     this.state = {
       titleDeck: ''
     }
-    // this.submit = this.submit.bind(this)
   }
 
   submit = async () => {
@@ -30,10 +29,10 @@ class NewDeck extends Component {
     await updateDecks(newDeckObj)
     getDecks()
       .then(res => dispatch(listDecks(JSON.parse(res))))
-      .then(() => {
+      .then((res) => {
         alert('Data inserted with success')
         const { navigation } = this.props
-        navigation.navigate('Decks')
+        navigation.navigate('Deck', { deck: newDeckObj[titleDeck] })
       })
   }
 
